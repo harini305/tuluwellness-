@@ -1,0 +1,223 @@
+.header {
+  --hc: var(--c-cream);
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  color: var(--hc);
+  transition:
+    background-color 0.4s var(--ease),
+    color 0.4s var(--ease),
+    box-shadow 0.4s var(--ease);
+}
+
+/* Soft scrim keeps the light header legible over the hero video. */
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 -24px;
+  background: linear-gradient(rgba(40, 32, 27, 0.38), rgba(40, 32, 27, 0));
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+}
+
+.header[data-solid] {
+  --hc: var(--c-text);
+  background: var(--c-cream);
+  box-shadow: 0 1px 0 var(--c-line);
+}
+
+.header[data-solid]::before {
+  opacity: 0;
+}
+
+.bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: var(--header-h);
+}
+
+/* Logo recoloured with a mask so one original file works on any background. */
+.logo {
+  flex: none;
+  width: 118px;
+  aspect-ratio: 586 / 244;
+  background: var(--hc);
+  -webkit-mask: url('/images/logo-black.webp') center / contain no-repeat;
+  mask: url('/images/logo-black.webp') center / contain no-repeat;
+  transition: background-color 0.4s var(--ease);
+}
+
+.nav ul {
+  display: flex;
+  gap: clamp(20px, 2.6vw, 40px);
+}
+
+.nav a {
+  position: relative;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: var(--track-ui);
+  text-transform: uppercase;
+  text-decoration: none;
+  padding-block: 8px;
+}
+
+.nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease);
+}
+
+.nav a:hover::after,
+.nav a:focus-visible::after,
+.nav a[aria-current='page']::after {
+  transform: scaleX(1);
+}
+
+.end {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.book {
+  min-height: 42px;
+  border-color: var(--hc);
+  color: var(--hc);
+}
+
+.book:hover {
+  background: var(--hc);
+  color: var(--c-text);
+}
+
+.header[data-solid] .book:hover {
+  color: var(--c-cream);
+}
+
+.toggle {
+  display: none;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.toggle span {
+  position: absolute;
+  left: 11px;
+  width: 22px;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.35s var(--ease);
+}
+
+.toggle span:first-child {
+  top: 17px;
+}
+
+.toggle span:last-child {
+  top: 25px;
+}
+
+.toggle[aria-expanded='true'] span:first-child {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.toggle[aria-expanded='true'] span:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+.menu {
+  position: fixed;
+  inset: var(--header-h) 0 0;
+  overflow-y: auto;
+  background: var(--c-cream);
+  color: var(--c-text);
+  border-top: 1px solid var(--c-line);
+}
+
+.menu[hidden] {
+  display: none;
+}
+
+.menuList {
+  padding-block: 24px 8px;
+}
+
+.menuList a[aria-current='page'] {
+  padding-left: 14px;
+  border-left: 2px solid currentColor;
+}
+
+.menuList a {
+  display: block;
+  transition: padding 0.3s var(--ease);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--c-line);
+  font-family: var(--font-head);
+  font-size: clamp(1.375rem, 1.1rem + 1.5vw, 1.75rem);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.menuFoot {
+  display: grid;
+  gap: 24px;
+  padding-block: 32px 48px;
+  font-size: var(--fs-sm);
+}
+
+.menuFoot a:not(:global(.btn)) {
+  text-decoration: none;
+}
+
+@media (max-width: 959px) {
+  .nav {
+    display: none;
+  }
+
+  .toggle {
+    display: block;
+  }
+}
+
+@media (max-width: 420px) {
+  .logo {
+    width: 100px;
+  }
+
+  .book {
+    min-height: 38px;
+    padding-inline: 14px;
+    letter-spacing: 0.1em;
+  }
+}
+
+/* The hero already shows the large logo, so the header mark appears once it turns solid. */
+.header:not([data-solid]) .logo {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.logo {
+  transition:
+    background-color 0.4s var(--ease),
+    opacity 0.4s var(--ease);
+}

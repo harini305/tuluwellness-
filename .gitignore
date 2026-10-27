@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+.vercel
+*.log
+
+# Audit raw captures: large, and include third-party files (e.g. a commercial font) not for redistribution.
+docs/source-audit/screenshots
+docs/source-audit/evidence
+docs/source-audit/original-assets

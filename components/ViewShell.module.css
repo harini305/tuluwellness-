@@ -1,0 +1,17 @@
+/* Each section fills the screen below the fixed header. */
+.view {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - var(--header-h));
+}
+
+.view > * {
+  flex: 1;
+}
+
+/* Contact plus the footer fill exactly one screen. */
+@media (min-width: 900px) {
+  .view:last-child {
+    min-height: calc(100svh - var(--header-h) - var(--footer-h));
+  }
+}
