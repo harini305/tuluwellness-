@@ -8,3 +8,6 @@ out
 docs/source-audit/screenshots
 docs/source-audit/evidence
 docs/source-audit/original-assets
+
+.vercel
+.env*
